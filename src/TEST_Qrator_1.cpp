@@ -10,7 +10,7 @@
 #include <utility>
 #include <vector>
 
-typedef std::vector<std::vector<bool>> AdjacencyMatrix;
+typedef std::vector< std::vector<bool> > AdjacencyMatrix;
 typedef std::vector<unsigned int> VisitsList;
 typedef std::pair<unsigned int, unsigned int> Edge;
 
