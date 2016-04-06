@@ -63,11 +63,12 @@ bool isAcyclic(const AdjacencyMatrix &am)
 	return true;
 }
 
-bool checkCycleByVertex(const AdjacencyMatrix &am, unsigned int vertex)
+bool checkCycleByVertex(const AdjacencyMatrix &am, unsigned int beginVertex, unsigned int endVertex)
 {
 	VisitsList visits(am.size(), 0);
+	visits[beginVertex] = 1;
 
-	return depthFirstSearch(am, visits, vertex);
+	return depthFirstSearch(am, visits, endVertex);
 	return true;
 }
 
@@ -85,7 +86,7 @@ bool orientEdges(AdjacencyMatrix &am, std::stack<Edge> &undirectedEdges)
 	am[edge.first][edge.second] = true;
 	am[edge.second][edge.first] = false;
 
-	if (checkCycleByVertex(am, edge.first))
+	if (checkCycleByVertex(am, edge.first, edge.second))
 	{
 		if (orientEdges(am, undirectedEdges))
 		{
@@ -97,7 +98,7 @@ bool orientEdges(AdjacencyMatrix &am, std::stack<Edge> &undirectedEdges)
 	am[edge.first][edge.second] = false;
 	am[edge.second][edge.first] = true;
 
-	if (checkCycleByVertex(am, edge.first))
+	if (checkCycleByVertex(am, edge.second, edge.first))
 	{
 		if (orientEdges(am, undirectedEdges))
 		{
