@@ -9,6 +9,7 @@
 #include <stack>
 #include <utility>
 #include <vector>
+#include <math.h>
 
 typedef std::vector< std::vector<bool> > AdjacencyMatrix;
 typedef std::vector<unsigned int> VisitsList;
@@ -147,8 +148,10 @@ bool solve(const AdjacencyMatrix &in, AdjacencyMatrix &out)
 	return true;
 }
 
-void fillMatrix(AdjacencyMatrix &m, const int *ar, unsigned int n)
+void fillMatrix(AdjacencyMatrix &m, const int *ar, unsigned int arSize)
 {
+	unsigned int n = sqrt(arSize/sizeof(int));
+
 	std::vector<bool> row(n, false);
 
 	m.assign(n, row);
@@ -341,7 +344,7 @@ int main(int argc, const char *argv[])
 
 	std::cout << "===================================== Initially cyclic graph ======================================" << std::endl;
 
-	fillMatrix(in, example_cyclic, 50);
+	fillMatrix(in, example_cyclic, sizeof(example_cyclic));
 
 	std::cout << "Source matrix:" << std::endl;
 	printMatrix(in);
@@ -356,7 +359,7 @@ int main(int argc, const char *argv[])
 
 	std::cout << "===================================== Graph without solution ======================================" << std::endl;
 
-	fillMatrix(in, example_withoutSolution, 50);
+	fillMatrix(in, example_withoutSolution, sizeof(example_withoutSolution));
 
 	std::cout << "Source matrix:" << std::endl;
 	printMatrix(in);
@@ -372,7 +375,7 @@ int main(int argc, const char *argv[])
 
 	std::cout << "======================================= Graph with solution =======================================" << std::endl;
 
-	fillMatrix(in, example_withSolution, 50);
+	fillMatrix(in, example_withSolution, sizeof(example_withSolution));
 
 	std::cout << "Source matrix:" << std::endl;
 	printMatrix(in);
