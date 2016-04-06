@@ -14,7 +14,7 @@ typedef std::vector< std::vector<bool> > AdjacencyMatrix;
 typedef std::vector<unsigned int> VisitsList;
 typedef std::pair<unsigned int, unsigned int> Edge;
 
-bool depthFirstSearch(const AdjacencyMatrix &am, VisitsList &visits, int currentVertex)
+bool depthFirstSearch(const AdjacencyMatrix &am, VisitsList &visits, unsigned int currentVertex)
 {
 	visits[currentVertex] = 1;
 	for (unsigned int nextVertex = 0; nextVertex < am[currentVertex].size(); ++nextVertex)
@@ -42,17 +42,17 @@ bool depthFirstSearch(const AdjacencyMatrix &am, VisitsList &visits, int current
 
 bool isAcyclic(const AdjacencyMatrix &am)
 {
-	VisitsList colors;
+	VisitsList visits;
 
-	colors.assign(am.size(), 0);
+	visits.assign(am.size(), 0);
 
-	for (unsigned int i = 0; i < colors.size(); ++i)
+	for (unsigned int i = 0; i < visits.size(); ++i)
 	{
-		if (colors[i])
+		if (visits[i])
 		{
 			continue;
 		}
-		if (depthFirstSearch(am, colors, i))
+		if (depthFirstSearch(am, visits, i))
 		{
 			// Graph has a cycle
 			return false;
