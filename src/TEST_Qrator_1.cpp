@@ -76,34 +76,24 @@ bool orientEdges(AdjacencyMatrix &am, std::stack<Edge> &undirectedEdges)
 	am[edge.first][edge.second] = true;
 	am[edge.second][edge.first] = false;
 
-	if (!isAcyclic(am))
+	if (isAcyclic(am))
 	{
-		return false;
-	}
-	if (undirectedEdges.empty())
-	{
-		return true;
-	}
-	if (orientEdges(am, undirectedEdges))
-	{
-		return true;
+		if (orientEdges(am, undirectedEdges))
+		{
+			return true;
+		}
 	}
 
 	// Try orient from upper to lower
 	am[edge.first][edge.second] = false;
 	am[edge.second][edge.first] = true;
 
-	if (!isAcyclic(am))
+	if (isAcyclic(am))
 	{
-		return false;
-	}
-	if (undirectedEdges.empty())
-	{
-		return true;
-	}
-	if (orientEdges(am, undirectedEdges))
-	{
-		return true;
+		if (orientEdges(am, undirectedEdges))
+		{
+			return true;
+		}
 	}
 
 	// Repair prev state
